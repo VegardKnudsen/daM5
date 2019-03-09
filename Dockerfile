@@ -8,8 +8,10 @@ RUN npm install sqlite3 express js2xmlparser body-parser cookie-parser md5 expre
 
 COPY package.json ./
 
+COPY www/index.html ./www/
+
 COPY app.js books.db ./
 
-EXPOSE 3000
+EXPOSE 80
 CMD ["npm", "start"]
 

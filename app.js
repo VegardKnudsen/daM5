@@ -1,4 +1,4 @@
-const port = 3000;
+const port = 80;
 
 const express = require('express');
 const sqlite3 = require('sqlite3');
@@ -12,6 +12,8 @@ const app = express();
 
 app.use(xmlparser());
 app.use(cookieParser());
+app.use('/index.html', express.static(__dirname + '/www/index.html'));
+//console.log();
 /*
 *
 *LOGIN
