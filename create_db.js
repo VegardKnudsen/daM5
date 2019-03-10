@@ -19,5 +19,4 @@ db.serialize(() => {
         console.log(row.authorID + ": " + row.firstname + ": " + row.lastname + ": " + row.nationality);
     });
 });
-
 db.close();

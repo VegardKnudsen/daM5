@@ -100,7 +100,7 @@ app.delete('/logout', (req, res) => {
         if(err){
             console.log("Something went wrong!");
         } else{
-            res.clearCookie('SessionID', { path: '/cgi-bin/' }).send();
+            res.clearCookie('SessionID', { path: '/cgi-bin/' }).send("Logged out");
             console.log(data.sessionID + " session deleted!");
         }
     });
