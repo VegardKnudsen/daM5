@@ -42,7 +42,7 @@
     var xhttp = new XMLHttpRequest(),
       method = "GET",
       url = "http://172.17.0.2:3000/" + table + "/" + id;
-
+    console.log("OFSAIUN");
     xhttp.onreadystatechange=function () {
       if (this.readyState == 4 && this.status == 200) {
         document.getElementById().innerHTML = this.responseText;
