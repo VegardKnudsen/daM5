@@ -12,6 +12,9 @@ const app = express();
 
 app.use(xmlparser());
 app.use(cookieParser());
+app.use('/index.html', express.static(__dirname + '/www/index.html'));
+app.use('/stylesheet.css', express.static(__dirname + '/www/stylesheet.css'));
+
 /*
 *
 *LOGIN
@@ -21,7 +24,7 @@ app.post('/login', (req, res) => {
     var data = {
         userID: req.body.logininfo.userid[0],
  		passwordhash: req.body.logininfo.passwordhash[0]
-    }
+    } 
 
     console.log(data.userID);
     console.log(data.passwordhash);

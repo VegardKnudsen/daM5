@@ -1,12 +1,12 @@
 <!doctype html>
 <html>
 <head>
-<title>CGI: Form</title>
+<title>Ajax Client</title>
     <link rel="stylesheet" href="stylesheet.css">
 </head>
 <body>
   <h1>Biblioteket</h1>
-  <h4>Baklien, Knudsen, Lundberg og Steinsto AS</h4> 
+  <h4>Baklien, Knudsen, Lundberg og Steinsto AS</h4>
 <form method=POST>
   <div class="container">
     <input type="text" placeholder="Username" name="uname">
@@ -31,26 +31,58 @@
       <input type="radio" name="request" value="POST"> Add<br>
       <input type="radio" name="request" value="PUT"> Edit<br>
       <input type="radio" name="request" value="DELETE"> Delete<br><br>
-      <button type="submit">Submit</button>
+      <button type="submit" onsubmit="get(table, id)">Submit</button>
     </form>
   </div>
 </div>
 
+<!-- GET author -->
+<script>
+  function get(table, id) {
+    var xhttp = new XMLHttpRequest(),
+      method = "GET",
+      url = "http://172.17.0.2:3000/" + table + "/" + id;
+
+    xhttp.onreadystatechange=function () {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById().innerHTML = this.responseText;
+      }
+    }
+  }
+  xhttp.open(method, url, true);
+  xhttp.send();
+</script>
+
 <!-- Add author -->
 <script>
-function postAuthor(ID, PARAM1, PARAM2, PARAM3){
-  var xhr = new XMLHttpRequest(),
+function postAuthor(id, param1, param2, param3) {
+  var xhttp = new XMLHttpRequest(),
     method = "POST",
     url = "http://172.17.0.2:3000/authors";
 
-  xhr.open(method, url, true);
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      console.log(xhr.responseText)
+  xhttp.open(method, url, true);
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState === 4 && xhttp.status === 200) {
+      console.log(xhttp.responseText);
     }
   }
-
-  xhr.send();
+  xhttp.send();
 </script>
+
+<script>
+  function postBook(id, param1, param2) {
+    var xhttp = new XMLHttpRequest(),
+      method = "POST",
+      url = "http://172.17.0.2:3000/books";
+
+    xhttp.open(method, url, true);
+    xhttp.onreadystatechange = function () {
+      if (xhttp.readyState === 4 && xhttp.status === 200) {
+        console.log(xhttp.responseText)
+      }
+  }
+  xhttp.send();
+</script>
+
 </body>
 </html>
