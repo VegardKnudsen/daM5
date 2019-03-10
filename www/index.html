@@ -33,55 +33,26 @@
       <input type="radio" name="request" value="DELETE"> Delete<br><br>
       <button type="submit" onsubmit="get(table, id)">Submit</button>
     </form>
+
+    <form method=GET>
+      <button type="button" onclick="loadDoc()">GETTT HEMMINGWAY BITCH</button>
+    </form>
   </div>
 </div>
 
 <!-- GET author -->
 <script>
-  function get(table, id) {
-    var xhttp = new XMLHttpRequest(),
-      method = "GET",
-      url = "http://172.17.0.2:3000/" + table + "/" + id;
-    console.log("OFSAIUN");
-    xhttp.onreadystatechange=function () {
-      if (this.readyState == 4 && this.status == 200) {
-        document.getElementById().innerHTML = this.responseText;
-      }
+    function loadDoc() {
+      console.log("jeg kommer hit");
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("demo").innerHTML = this.responseText;
+        }
+      };
+      xhttp.open("GET", "http://172.17.0.2:3000/authors/1", true);
+      xhttp.send();
     }
-  }
-  xhttp.open(method, url, true);
-  xhttp.send();
-</script>
-
-<!-- Add author -->
-<script>
-function postAuthor(id, param1, param2, param3) {
-  var xhttp = new XMLHttpRequest(),
-    method = "POST",
-    url = "http://172.17.0.2:3000/authors";
-
-  xhttp.open(method, url, true);
-  xhttp.onreadystatechange = function() {
-    if (xhttp.readyState === 4 && xhttp.status === 200) {
-      console.log(xhttp.responseText);
-    }
-  }
-  xhttp.send();
-</script>
-
-<script>
-  function postBook(id, param1, param2) {
-    var xhttp = new XMLHttpRequest(),
-      method = "POST",
-      url = "http://172.17.0.2:3000/books";
-
-    xhttp.open(method, url, true);
-    xhttp.onreadystatechange = function () {
-      if (xhttp.readyState === 4 && xhttp.status === 200) {
-        console.log(xhttp.responseText)
-      }
-  }
-  xhttp.send();
 </script>
 
 </body>

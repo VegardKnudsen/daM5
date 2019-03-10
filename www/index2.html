@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>GET Test</h1>
+<form>
+    <input type="text" placeholder="Author ID" name="authorID"><br>
+    <button type="button" onclick="get(authorID.value)">Hent forfatter</button>
+    <p id="get"></p>
+</form>
+
+<h1>POST Test</h1>
+<form>
+    <input type="text" placeholder="Author ID" name="id"><br>
+    <input type="text" placeholder="First Name" name="param1"><br>
+    <input type="text" placeholder="Last Name" name="param2"><br>
+    <input type="text" placeholder="Nationality" name="param3"><br>
+    <button type="button" onclick="post(id.value, param1.value, param2.value, param3.value)">Legg til en forfatter</button>
+    <p id="post"></p>
+</form>
+
+<!-- GET author -->
+<script>
+function get(table, authorID) {
+    if (table ="authors"){
+        var xhttp = new XMLHttpRequest(),
+            method = "GET",
+            url = "/authors/" + authorID;
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("get").innerHTML = this.responseText;
+            }
+        };
+        xhttp.open(method, url, true);
+        xhttp.send();
+    } else {
+        var xhttp = new XMLHttpRequest(),
+            method = "GET",
+            url = "/books/" + authorID;
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("get").innerHTML = this.responseText;
+            }
+        };
+        xhttp.open(method, url, true);
+        xhttp.send();
+    }
+}
+</script>
+
+<!-- POST author -->
+<script>
+function post(table, id, param1, param2, param3) {
+    if (table = "authors"){
+        var XML="<?xml version=1.0 encoding=UTF-8?>" +
+                "<useri><authorid>"+id+
+                "</authorid><firstname>"+param1+
+                "</firstname><lastname>"+param2+
+                "</lastname><nationality>"+param3+
+                "</nationality></useri>";
+        var xhttp = new XMLHttpRequest(),
+            method = "POST",
+            url = "/authors";
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("post").innerHTML = this.responseText;
+            }
+        };
+        xhttp.open(method, url, true);
+        xhttp.setRequestHeader('Content-type', 'text/xml');
+        xhttp.send(XML);
+ 
+    } else {
+        var XML="<?xml version=1.0 encoding=UTF-8?>" +
+                "<useri><bookid>"+id+
+                "</bookid><booktitle>"+param1+
+                "</booktitle><authorid>"+param2+
+                "</authorid></useri>";
+        var xhttp = new XMLHttpRequest(),
+            method = "POST",
+            url = "/authors";
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("post").innerHTML = this.responseText;
+            }
+        };
+        xhttp.open(method, url, true);
+        xhttp.setRequestHeader('Content-type', 'text/xml');
+        xhttp.send(XML);
+        
+    }
+    
+}    
+</script>
+
+
+
+</body>

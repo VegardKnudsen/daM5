@@ -13,6 +13,7 @@ const app = express();
 app.use(xmlparser());
 app.use(cookieParser());
 app.use('/index.html', express.static(__dirname + '/www/index.html'));
+app.use('/index2.html', express.static(__dirname + '/www/index2.html'));
 app.use('/stylesheet.css', express.static(__dirname + '/www/stylesheet.css'));
 
 /*
