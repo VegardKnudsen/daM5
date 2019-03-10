@@ -26,20 +26,15 @@ app.post('/login', (req, res) => {
         userID: req.body.logininfo.userid[0],
  		passwordhash: req.body.logininfo.passwordhash[0]
     } 
-
-    console.log(data.userID);
-    console.log(data.passwordhash);
-
     var params = [data.userID];
-
     console.log("UserID: " + data.userID + " Password: " + data.passwordhash);
-    console.log("Cookie: " + req.body.cookies);
 
-    var SQL = `SELECT passwordhash, userID FROM user WHERE userID = ?`;
+    var SQL = `SELECT passwordhash, userID, firstname FROM user WHERE userID = ?`;
     db.get(SQL, params, (err, row) => {
         if(row != null) {
         	let username = row.userID;
         	let password = row.passwordhash;
+            let firstname = row.firstname;
         	let hashpassword = md5(data.passwordhash);
 
         	if (data.userID == username){
@@ -50,7 +45,6 @@ app.post('/login', (req, res) => {
                     var random = uuidv4();
 
                     var params = [random, data.userID];
-                    console.log("Randomnumber: " + random);
                     db.run(SQL, params, (err) => {
                         if(err){
                             console.log("Something went wrong!");
@@ -59,7 +53,7 @@ app.post('/login', (req, res) => {
                             console.log("SessionID: " + random);
                         }
                     });
-        			res.cookie("SessionID", random).send("Logged in");
+        			res.cookie("SessionID", random).send("Hi, " + firstname);
         		} else {
         			console.log("Wrong username or password");
         			res.send("Wrong username or password");
@@ -71,8 +65,8 @@ app.post('/login', (req, res) => {
         } else if(err){
             console.log("Something went wrong!");
         } else {
-        	console.log("Noob!");
-        	res.send("Contact admin!");
+        	console.log("Wrong username or password");
+        	res.send("Wrong username or password!");
         }
     });
 });
@@ -190,7 +184,7 @@ app.post('/authors', (req, res) => {
             }
         } else {
             console.log("Something went wrong!");
-            res.send("You don't have authorization!");
+            res.send("You don't have authorization, please login!");
         }
     });
 });
